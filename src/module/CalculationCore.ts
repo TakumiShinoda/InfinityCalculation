@@ -22,6 +22,69 @@ function plusOne(target: string): string {
   return result
 }
 
+function substractOne(numStr: string): string{
+  let result: string = ""
+  let numStrRev:string = numStr.split("").reverse().join("")
+  let cnt: number = 0
+  let calcResult = 0
+  let moveDown: boolean = true
+
+  while(cnt < numStrRev.length) {
+    if(moveDown){
+      calcResult = parseInt(numStrRev[cnt]) - 1
+    }else{
+      calcResult = parseInt(numStrRev[cnt])
+    }
+    if(calcResult < 0) calcResult = 10 + calcResult
+    else moveDown = false
+    result = calcResult.toString() + result
+    cnt += 1
+  }
+
+  return result
+}
+
+function checkBigger(firNum: string, secNum: string): string[] {
+  let larger: string | null = null
+  let lower: string | null = null
+
+  if(firNum.length == secNum.length){
+    for(var i = 0; i < firNum.length; i++){
+      if(firNum[i] != secNum[i]){
+        firNum > secNum ? larger = firNum : larger = secNum
+        firNum > secNum ? lower = secNum : lower = firNum
+      }
+    }
+    if(larger == null) larger = firNum
+    if(lower == null) lower = secNum
+  }else if(firNum.length > secNum.length){
+    larger = firNum
+    lower = secNum
+  }else if(firNum.length < secNum.length){
+    larger = secNum
+    lower = firNum
+  }
+
+  if(larger != null && lower != null) {
+    return [larger, lower]
+  }else{
+    return [firNum, secNum]
+  }
+}
+
+function removeTopZero(numStr: string): string {
+  let result: string = ""
+  let zeroLength: number = 0
+
+  for(var i = 0; i < numStr.length; i++){
+    if(numStr[i] == '0') zeroLength += 1 
+    else break
+  }
+  result = numStr.substring(zeroLength, numStr.length)
+
+  return result
+}
+
 export function fillDecimal(firstNumDec: string, secNumDec: string): string[] {
   let decimalDiff: number = 0
 
@@ -76,4 +139,55 @@ export function InfPlusCore(firstNum: string, secNum: string): string {
   moveUp ? result = plusOne(overNum) + result : result = overNum + result
 
   return result
+}
+
+export function InfSubstractCore(firNum: string, secNum: string){ // do not use minus value
+  let minus: boolean = false
+  let moveDown: boolean = false
+  let diffLength: number = 0
+  let calcResult: number = 0
+  let largerNum: string = ""
+  let lowerNum: string = ""
+  let overNum: string | null = null
+  let result: string = ""
+
+  if(firNum.length == secNum.length){
+    largerNum = checkBigger(firNum, secNum)[0].split("").reverse().join("")
+    lowerNum = checkBigger(firNum, secNum)[1].split("").reverse().join("")
+    if(largerNum !== firNum) minus = true
+  }else if(firNum.length > secNum.length){ 
+    diffLength = firNum.length - secNum.length
+    overNum = firNum.substring(0, diffLength)
+    largerNum =  firNum.split("").reverse().join("")
+    lowerNum = secNum.split("").reverse().join("")
+  }else if(firNum.length < secNum.length){
+    diffLength = secNum.length - firNum.length
+    overNum = secNum.substring(0, diffLength)
+    largerNum = secNum.split("").reverse().join("")
+    lowerNum = firNum.split("").reverse().join("")
+    minus = true
+  }
+
+  for(var i = 0; i < lowerNum.length; i++){
+    moveDown ? calcResult = (parseInt(largerNum[i]) - parseInt(lowerNum[i])) - 1 : calcResult = parseInt(largerNum[i]) - parseInt(lowerNum[i])
+    moveDown = false
+
+    if(calcResult < 0){
+      calcResult = 10 + calcResult
+      moveDown = true
+    }
+    result = calcResult.toString() + result
+  }
+
+  console.log('over', overNum)
+  if(moveDown && overNum != null) overNum = substractOne(overNum)
+  console.log('over', overNum)
+  if(overNum != null) result = overNum + result
+  result = removeTopZero(result)
+  if(minus) result = '-' + result
+
+  console.log('diff', diffLength)
+  console.log('lar', largerNum)
+  console.log('low', lowerNum)
+  console.log('res', result)
 }

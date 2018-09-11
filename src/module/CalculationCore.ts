@@ -22,6 +22,22 @@ function plusOne(target: string): string {
   return result
 }
 
+export function fillDecimal(firstNumDec: string, secNumDec: string): string[] {
+  let decimalDiff: number = 0
+
+  if(firstNumDec.length != secNumDec.length){
+    if(firstNumDec.length > secNumDec.length){
+      decimalDiff = firstNumDec.length - secNumDec.length
+      for(var i = 0; i < decimalDiff; i++) secNumDec += '0'
+    }else{
+      decimalDiff = secNumDec.length - firstNumDec.length
+      for(var i = 0; i < decimalDiff; i++) firstNumDec += '0'
+    }
+  }
+
+  return [firstNumDec, secNumDec]
+}
+
 export function InfPlusCore(firstNum: string, secNum: string): string {
   let result: string = ""
   let moveUp: boolean = false

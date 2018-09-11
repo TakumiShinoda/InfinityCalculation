@@ -1,7 +1,6 @@
-import { InfPlusCore } from './CalculationCore'
+import { InfPlusCore, fillDecimal } from './CalculationCore'
 
 export function InfPlus(firstNum: string, secNum: string): string {
-  let decimalDiff: number = 0
   let decimalLongerLength: number = 0
   let firstNumDec: string | null = null
   let secNumDec: string | null = null
@@ -10,6 +9,7 @@ export function InfPlus(firstNum: string, secNum: string): string {
   let natureResult: string = ""
   let decimalResult: string | null = null
   let result: string = ""
+  let fixedDecimals: string[];
 
   if(firstNum.indexOf('.') >= 0){
     firstNumNat = firstNum.substring(0, firstNum.indexOf('.'))
@@ -23,20 +23,12 @@ export function InfPlus(firstNum: string, secNum: string): string {
   if(firstNumDec != null || secNumDec != null){
     if(firstNumDec == null) firstNumDec = "0"
     if(secNumDec == null) secNumDec = "0"
-    if(firstNumDec.length != secNumDec.length){
-      if(firstNumDec.length > secNumDec.length){
-        decimalDiff = firstNumDec.length - secNumDec.length
-        decimalLongerLength = firstNumDec.length
-        for(var i = 0; i < decimalDiff; i++) secNumDec += '0'
-      }else{
-        decimalDiff = secNumDec.length - firstNumDec.length
-        decimalLongerLength = secNumDec.length
-        for(var i = 0; i < decimalDiff; i++) firstNumDec += '0'
-      }
-    }else{
-      decimalLongerLength = firstNumDec.length;
+    fixedDecimals = fillDecimal(firstNumDec, secNumDec)
+    if(firstNumDec.length == secNumDec.length){
+      if(firstNumDec.length > secNumDec.length) decimalLongerLength = firstNumDec.length
+      else decimalLongerLength = secNumDec.length
     }
-    decimalResult = InfPlusCore(firstNumDec, secNumDec)
+    decimalResult = InfPlusCore(fixedDecimals[0], fixedDecimals[1])
     if(decimalResult.length > decimalLongerLength){
       decimalResult = decimalResult.substring(1)
       natureResult = InfPlusCore(natureResult, "1")

@@ -1,4 +1,5 @@
-import { InfPlusCore, fillDecimal } from './CalculationCore'
+import { InfPlusCore, fillDecimal, checkBiggerWithMinus } from './CalculationCore' 
+import { Exist } from './Utils'
 
 export function InfPlus(firstNum: string, secNum: string): string {
   let decimalLongerLength: number = 0
@@ -37,4 +38,16 @@ export function InfPlus(firstNum: string, secNum: string): string {
   decimalResult == null ? result = natureResult : result = natureResult + '.' + decimalResult
 
   return result
+}
+
+export function InfSubstract(firNum: string, secNum: string){
+  let result: string = ''
+  let decimalResult: string = ''
+  let largerNum: string = ''
+  let smallerNum: string = ''
+  
+  largerNum = checkBiggerWithMinus(firNum, secNum)[0]
+  smallerNum = checkBiggerWithMinus(firNum, secNum)[1]
+  console.log('larger', largerNum)
+  console.log('smaller', smallerNum + '\n')
 }

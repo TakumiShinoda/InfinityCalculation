@@ -1,3 +1,5 @@
+import { Exist } from './Utils'
+
 function plusOne(target: string): string {
   let targetRev: string = target.split("").reverse().join("")
   let moveUp: boolean = true
@@ -44,7 +46,7 @@ function substractOne(numStr: string): string{
   return result
 }
 
-function checkBigger(firNum: string, secNum: string): string[] {
+export function checkBigger(firNum: string, secNum: string): string[] {
   let larger: string | null = null
   let lower: string | null = null
 
@@ -70,6 +72,29 @@ function checkBigger(firNum: string, secNum: string): string[] {
   }else{
     return [firNum, secNum]
   }
+}
+
+export function checkBiggerWithMinus(firNum: string, secNum: string): string[]{
+  let largerNum: string = ''
+  let smallerNum: string = ''
+
+  if((Exist(firNum, '-') || Exist(secNum, '-')) && (Exist(firNum, '-') != Exist(secNum, '-'))){
+    Exist(firNum, '-') ? largerNum = secNum : largerNum = firNum
+    Exist(firNum, '-') ? smallerNum = firNum : smallerNum = secNum
+  }else{
+    if(Exist(firNum, '-') && Exist(secNum, '-')){
+      let absFirNum: string = firNum.substring(1, firNum.length)
+      let absSecNum: string = secNum.substring(1, secNum.length)
+
+      largerNum = '-' + checkBigger(absFirNum, absSecNum)[1]
+      smallerNum = '-' + checkBigger(absFirNum, absSecNum)[0]
+    }else{
+      largerNum = checkBigger(firNum, secNum)[0]
+      smallerNum = checkBigger(firNum, secNum)[1]
+    }
+  }
+
+  return [largerNum, smallerNum]
 }
 
 function removeTopZero(numStr: string): string {

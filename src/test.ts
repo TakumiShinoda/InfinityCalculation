@@ -1,4 +1,4 @@
-import { InfPlus } from './module/InfinityCalculation'
+import { InfPlus, InfSubstract } from './module/InfinityCalculation'
 import { InfSubstractCore } from './module/CalculationCore'
 
 // console.log(InfPlus("555.674", "123555.6473"))
@@ -12,5 +12,10 @@ import { InfSubstractCore } from './module/CalculationCore'
 // InfSubstractCore("12", "12314")
 // InfSubstractCore('99999', '99998')
 // InfSubstractCore("231", "1231441")
-InfSubstractCore('123456', '650')
-InfSubstractCore('650', '123456')
+// InfSubstractCore('123456', '650')
+// InfSubstractCore('650', '123456')
+
+InfSubstract('-12', '21');
+InfSubstract('12', '-21');
+InfSubstract('-12', '-21');
+InfSubstract('12', '21');

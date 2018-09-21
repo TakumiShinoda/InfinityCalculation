@@ -13,9 +13,12 @@ import { InfSubstractCore } from './module/CalculationCore'
 // InfSubstractCore('99999', '99998')
 // InfSubstractCore("231", "1231441")
 // InfSubstractCore('123456', '650')
-// InfSubstractCore('650', '123456')
+// console.log(InfSubstractCore('650', '123456'))
+// console.log(InfSubstractCore('13', '21'))
+// console.log(InfSubstractCore('21', '13'))
 
-InfSubstract('-12', '21');
-InfSubstract('12', '-21');
-InfSubstract('-12', '-21');
-InfSubstract('12', '21');
+InfSubstract('-13', '21');
+InfSubstract('13', '-21');
+InfSubstract('-13', '-21');
+InfSubstract('-21', '-13');
+InfSubstract('13', '21');

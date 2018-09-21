@@ -1,4 +1,4 @@
-import { InfPlusCore, fillDecimal, checkBiggerWithMinus } from './CalculationCore' 
+import { InfPlusCore, fillDecimal, checkBiggerWithMinus, InfSubstractCore } from './CalculationCore' 
 import { Exist } from './Utils'
 
 export function InfPlus(firstNum: string, secNum: string): string {
@@ -45,9 +45,33 @@ export function InfSubstract(firNum: string, secNum: string){
   let decimalResult: string = ''
   let largerNum: string = ''
   let smallerNum: string = ''
+  let secPlus: boolean = false
+  let addMinus: boolean = false
+
+  console.log('input1', firNum)
+  console.log('input2', secNum)
   
+  secNum.indexOf('-') >= 0 ? secPlus = true : secPlus = false
   largerNum = checkBiggerWithMinus(firNum, secNum)[0]
   smallerNum = checkBiggerWithMinus(firNum, secNum)[1]
   console.log('larger', largerNum)
-  console.log('smaller', smallerNum + '\n')
+  console.log('smaller', smallerNum)
+
+  if((Exist(largerNum, '-') || Exist(smallerNum, '-')) && (Exist(largerNum, '-') != Exist(smallerNum, '-'))){
+    secPlus ? addMinus = false : addMinus = true
+    result = InfPlus(largerNum, smallerNum.substring(1, smallerNum.length))
+  }else if(Exist(largerNum, '-') && Exist(smallerNum, '-')){
+    result = InfSubstractCore(secNum.substring(1, secNum.length), firNum.substring(1, firNum.length))
+  }else if(!Exist(largerNum, '-') && !Exist(smallerNum, '-')){
+    if(largerNum == firNum){
+      result = InfSubstractCore(largerNum, smallerNum)
+    }else{
+      result = InfSubstractCore(largerNum, smallerNum) 
+      addMinus = true
+    }
+  }
+
+  if(addMinus) result = '-' + result
+
+  console.log(result + '\n')
 }

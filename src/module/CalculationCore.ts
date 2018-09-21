@@ -166,7 +166,7 @@ export function InfPlusCore(firstNum: string, secNum: string): string {
   return result
 }
 
-export function InfSubstractCore(firNum: string, secNum: string){ // do not use minus value
+export function InfSubstractCore(firNum: string, secNum: string): string{ // do not use minus value
   let minus: boolean = false
   let moveDown: boolean = false
   let diffLength: number = 0
@@ -179,7 +179,7 @@ export function InfSubstractCore(firNum: string, secNum: string){ // do not use 
   if(firNum.length == secNum.length){
     largerNum = checkBigger(firNum, secNum)[0].split("").reverse().join("")
     lowerNum = checkBigger(firNum, secNum)[1].split("").reverse().join("")
-    if(largerNum !== firNum) minus = true
+    if(largerNum.split("").reverse().join("") != firNum) minus = true
   }else if(firNum.length > secNum.length){ 
     diffLength = firNum.length - secNum.length
     overNum = firNum.substring(0, diffLength)
@@ -204,15 +204,10 @@ export function InfSubstractCore(firNum: string, secNum: string){ // do not use 
     result = calcResult.toString() + result
   }
 
-  console.log('over', overNum)
   if(moveDown && overNum != null) overNum = substractOne(overNum)
-  console.log('over', overNum)
   if(overNum != null) result = overNum + result
   result = removeTopZero(result)
   if(minus) result = '-' + result
 
-  console.log('diff', diffLength)
-  console.log('lar', largerNum)
-  console.log('low', lowerNum)
-  console.log('res', result)
+  return result
 }

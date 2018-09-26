@@ -39,14 +39,18 @@ export function InfPlus(firstNum: string, secNum: string): string {
 
   return result
 }
-
-export function InfSubstract(firNum: string, secNum: string){
+ 
+export function InfSubstract(firNum: string, secNum: string){ 
   let result: string = ''
   let decimalResult: string = ''
+  let decimalLargerNum: string = ''
+  let decimalSmallerNum: string = ''
+  let largerNumDot: number = -1
+  let smallerNumDot: number = -1
   let largerNum: string = ''
   let smallerNum: string = ''
   let secPlus: boolean = false
-  let addMinus: boolean = false
+  let addMinus: boolean = false 
 
   console.log('input1', firNum)
   console.log('input2', secNum)
@@ -54,8 +58,20 @@ export function InfSubstract(firNum: string, secNum: string){
   secNum.indexOf('-') >= 0 ? secPlus = true : secPlus = false
   largerNum = checkBiggerWithMinus(firNum, secNum)[0]
   smallerNum = checkBiggerWithMinus(firNum, secNum)[1]
-  console.log('larger', largerNum)
-  console.log('smaller', smallerNum)
+  console.log('largerRAW', largerNum)
+  console.log('smallerRAW', smallerNum)
+
+  largerNumDot = largerNum.indexOf('.')
+  smallerNumDot = smallerNum.indexOf('.')
+  if(largerNumDot >= 0){
+    decimalLargerNum = largerNum.substring(largerNumDot + 1, largerNum.length)
+    largerNum = largerNum.substring(0, largerNumDot)
+  }
+
+  if(smallerNumDot >= 0){ 
+    decimalSmallerNum = smallerNum.substring(smallerNumDot + 1, smallerNum.length)
+    smallerNum = smallerNum.substring(0, smallerNumDot)
+  }
 
   if((Exist(largerNum, '-') || Exist(smallerNum, '-')) && (Exist(largerNum, '-') != Exist(smallerNum, '-'))){
     secPlus ? addMinus = false : addMinus = true
@@ -72,6 +88,11 @@ export function InfSubstract(firNum: string, secNum: string){
   }
 
   if(addMinus) result = '-' + result
+  console.log('larger', largerNum)
+  console.log('smaller', smallerNum)
+  console.log('decLar', decimalLargerNum)
+  console.log('decSma', decimalSmallerNum)
+  console.log('result', result + '\n')
 
-  console.log(result + '\n')
+  return result
 }

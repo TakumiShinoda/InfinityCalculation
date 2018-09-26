@@ -16,9 +16,10 @@ import { InfSubstractCore } from './module/CalculationCore'
 // console.log(InfSubstractCore('650', '123456'))
 // console.log(InfSubstractCore('13', '21'))
 // console.log(InfSubstractCore('21', '13'))
-
-InfSubstract('-13', '21');
-InfSubstract('13', '-21');
-InfSubstract('-13', '-21');
-InfSubstract('-21', '-13');
-InfSubstract('13', '21');
+ 
+InfSubstract('-13', '21')
+InfSubstract('13', '-21')
+InfSubstract('-13', '-21')
+InfSubstract('-21', '-13')
+InfSubstract('13', '21')
+InfSubstract('13.3', '21.1')  
